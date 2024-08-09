@@ -14,6 +14,7 @@
   position: fixed;
   top: 0;
   left: 0;
+  z-index: -1;
 }
 
 #topcontainer {
@@ -24,9 +25,14 @@
   display: flex;
   align-items: center;
 }
-.details,
-.authentication {
+#details,
+#authentication {
   display: flex;
+  gap: 20px;
+}
+#afterloggedin{
+
+  display: none;
   gap: 20px;
 }
 #herosection {
@@ -53,7 +59,7 @@
   padding-left: 15px;
   margin-top: 50px;
   width: 600px;
-  background-image: url("Abstract Design2.png");
+  background-image: url("./assets/Abstract Design2.png");
   background-repeat: no-repeat;
   background-position: right top;
   top: 0px;
@@ -178,6 +184,7 @@ body {
   font-size: smaller;
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 
 .services {
@@ -189,6 +196,7 @@ body {
 }
 .services p {
   font-size: medium;
+  color: white;
 }
 .servicecontainer {
   display: flex;
@@ -239,9 +247,7 @@ body {
   margin-right: 50px;
   margin-bottom: 30px;
 }
-body p {
-  color: white;
-}
+
 #maingrid {
   display: grid;
   width: auto;
@@ -346,7 +352,289 @@ body p {
 #mpf img {
   width: 60px;
 }
-.page2{
-    padding-left: 50px;
-    margin-top: 100px;
+.page2 {
+  padding-left: 50px;
+  margin-top: 100px;
 }
+.page2 p{
+  color: white;
+
+}
+#signup {
+  cursor: pointer;
+  text-decoration: none;
+}
+.bgoverlay {
+  display: none;
+  background-color: #1a1a1a;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  justify-content: center;
+  align-items: center;
+}
+#overlaycontainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  height: 400px;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design21.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+
+}
+#signupcontainer {
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design.png");
+
+}
+#input-values {
+  display: flex;
+  justify-content: space-around;
+}
+#btn {
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  padding-left: 40%;
+  
+}
+#buttton{
+  background-color: #caff33;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+}
+
+#successmg {
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /* background-image: url("assets/Abstract\ Design.png"); */
+}
+#Logging-in{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #58622d;
+  border-radius: 15px;
+  /* padding-top: 35%;
+  padding-bottom: 35%; */
+  background-image: url("assets/Abstract\ Design.png");
+  background-repeat: no-repeat;
+  
+
+}
+#welcomemsg{
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  /* background-image: url("assets/Abstract\ Design.png"); */
+}
+#error{
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+  /* background-image: url("assets/Abstract\ Design.png"); */
+}
+#popupheading{
+  display: flex;
+  justify-content: center;
+  color: #caff33;
+  
+  
+}
+#input-values input{
+  background-color: #e9e7eb;
+  width: 250px;
+  height: 35px;
+  border-radius: 16px;
+}
+#input-values{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+label{
+  font-weight: bold;
+  width: 80px;
+  color: #fff;
+}
+#p-error{
+  color: red;
+}
+#m-error{
+  color: red;
+}
+#smallletter{
+  display:none;
+  color: red;
+}
+#capitalletter{
+  display:none;
+  color: red;
+}
+#number{
+  display:none;
+  color: red;
+}
+#u-error{
+  color:red;
+  display: none;
+}
+#e-error{
+  color: red;
+}
+#phonemessage{
+  color: red;
+  display: none;
+}
+#logout{
+  
+    background-color: rgb(245, 44, 44);
+    border-radius: 25px;
+    width: 55px;
+    color: white;
+    font-size: smaller;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+  
+  
+}
+#withdrawmsg{
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+#depomsg{
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+}
+#Depositcontainer {
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design.png");
+
+}
+#Depositcontainer h1{
+  color: white;
+  text-align: center;
+}
+#Withdrawcontainer h1{
+  color: white;
+  text-align: center;
+}
+#Depositwarning{
+  color: red;
+  display: none;
+}
+#Depositpasswarning{
+  color: red;
+  display: none;
+
+}
+#Withdrawcontainer {
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design.png");
+
+}
+#transdetail{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design.png");
+
+}
+#transdetail h1{
+  align-self: center;
+}
+#balance{
+  display: none;
+  justify-content: center;
+  color: white;
+}
+#transaction{
+  color: white;
+  
+
+}
+#transaction_box{
+  display: flex;
+  justify-content: space-between;
+  border: 4px dashed rgb(82, 137, 9);
+  margin-bottom: 15px;
+  border-radius: 25px;
+  /* flex-direction: column; */
+  
+}
+#transaction{
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+#transaction_box p{
+  padding: 10px;
+
+}
+#closebutton img{
+  width: 25px;
+  height: 25px;
+  
+}
+#closebutton{
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 10px;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background-color:#caff33;
+  border-radius: 25px;
+  height: 8px;
+  width: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 

@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="index.css" />
 </head>
 <body>
-  <img class="img" src="/assets/ Design.png" alt="" />
+  <img class="img" src="/assets/Abstract Design.png" alt="" />
 
   <header>
     <div id="topcontainer">
@@ -12,15 +12,19 @@
           <img src="/assets/shape-30.png" />
           <h4>Hari's bank 2.0 </h4>
         </div>
-        <div class="details">
+        <div id="details">
           <div>Home</div>
           <div>Careers</div>
           <div>About</div>
           <div>Security</div>
         </div>
-        <div class="authentication">
-          <div>Signup</div>
-          <div id="Login">Login</div>
+        <div id="authentication">
+          <div id="signup" onclick="signn()">Signup</div>
+          <div id="Login" onclick="logged()">Login</div>
+        </div>
+        <div id="afterloggedin">
+          <div id="heyuser">Hey <span id="dname"></span></div>
+          <div id="logout" onclick="logout()">LogOut</div>
         </div>
       </nav>
     </div>
@@ -97,16 +101,19 @@
       Discover a range of comprehensive and customizable banking products at
       YourBank, designed to suit your unique financial needs and aspirations.
     </p>
-    <div class="servicecontainer">
-      <div id="cont" ><img src="/assets/Icon Container.png" />Deposit</div>
 
-      <div id="cont" >
+    <!-- functionality -->
+    <div class="servicecontainer">
+      <div id="cont" onclick="deposit()"><img src="/assets/Icon Container.png" />Deposit</div>
+      <!-- <div id="signup" onclick="signn()">Signup</div> -->
+
+      <div id="cont" onclick="Withdraw()" >
         <img src="/assets/Icon Container.png" />Withdraw
       </div>
-      <div id="cont" >
+      <div id="cont" onclick="Transactiondetails()">
         <img src="/assets/Icon Container (1).png" />Account Details
       </div>
-      <div id="cont" class="cont4">
+      <div id="cont" class="cont4" onclick="viewbalance()">
         <img src="/assets/Icon Container (2).png" />Veiw Balance
       </div>
     </div>
@@ -207,5 +214,113 @@
       </div></div>
     </div>
   </div>
+
+  <div class="bgoverlay forclosing" id="overlay">
+    <div id="overlaycontainer" class="forclosing">
+      <div id="signupcontainer" class="forclosing">
+        <div id="popupheading"><h2>Sign UP</h2></div>
+        <div id="input-values"> <label for="unme">Username</label>
+          <input type="text" oninput="ucheck()" placeholder="UserName" id="unme" required>
+        </div> 
+        <span id="u-error">Username should have atleast 6 characters</span>
+        <div id="input-values" > <label for="gmail">Email</label>
+          <input type="email" onfocusout="mailcheck()" placeholder="Email id" id="gmail" required>
+        </div> 
+        <span id="e-error"></span>
+        <div id="input-values"> <label for="phno">Mobile</label>
+          <input type="numberic" oninput="numcheck()" placeholder="Phone" id="phno" required>
+        </div> 
+        <span id="phonemessage">10 numbers required</span>
+        <div id="input-values"> <label for="pwd">Password</label>
+          <input type="password" oninput="check()" placeholder="Password" id="pwd" required>
+        </div> 
+        <span id="m-error"></span>
+        <span id="smallletter">Does not Contain Small Letters</span>
+        <span id="capitalletter">Does not Contain Capital Letters</span>
+        <span id="number">Does not Contain Numbers</span>
+        
+        <div id="input-values"> <label for="cpwd">Confirm Password</label>
+          <input type="password" placeholder="Confirm Password" id="cpwd" required>
+        </div> 
+        <span id="p-error"></span>
+        <div id="btn"> <button type="submit" id="buttton" onclick="Signin()">Signup</button></div>
+      </div>
+      <div  id="successmg">
+        <p>Sign Up Success!!</p>
+      </div>
+      <div id="Logging-in">
+        <div id="popupheading" class="forclosing"><h2>Log In</h2></div>
+        <div id="input-values" > <label for="gmail2">Email</label>
+          <input type="email" placeholder="Email id" id="gmail2" required>
+        </div>
+        <div id="input-values"> <label for="pwd2">Password</label>
+          <input type="password" placeholder="Password" id="pwd2" required>
+        </div> 
+        <div id="btn"> <button id="buttton" onclick="Login()">Log In</button></div>
+        
+      </div>
+
+      <div  id="welcomemsg" class="forclosing">
+          <p>Welcome User!!</p>
+        </div>
+        <div  id="error">
+          <p>Invalid Credentials!!</p>
+        </div>
+        <div id="Depositcontainer" class="forclosing">
+          <h1>Add Money</h1>
+          <div id="input-values"> <label for="depositamount" >Enter the amount</label>
+            <input type="numberic" id="depositamount" onblur="moneycheck()">
+          </div> 
+          <div id="Depositwarning">Amount needs to be Entered</div>
+          
+          <div id="input-values"> <label for="pin">Password</label>
+            <input type="password" placeholder="Password" id="pin" required>
+          </div> 
+          <div id="Depositpasswarning">Invalid password</div>
+          <div id="btn"> <button id="buttton" onclick="depositconfirm()">Deposit</button></div>
+
+          
+
+
+        </div>
+        <div  id="depomsg" class="forclosing">
+          <p>Hurray!!<br>Money Credited!!</p>
+        </div>
+        <div id="Withdrawcontainer" class="forclosing">
+          <h1>Withdraw Money</h1>
+          <div id="input-values"> <label for="withdrawamount" >Enter the amount</label>
+            <input type="numberic" id="withdrawamount">
+          </div> 
+          
+          <div id="input-values"> <label for="pin1">Password</label>
+            <input type="password" placeholder="Password" id="pin1" required>
+          </div> 
+          <div id="Depositpasswarning">Invalid password</div>
+          <div id="btn"> <button id="buttton" onclick="withdrawconfirm()">Withdraw</button></div>
+          
+
+
+        </div>
+        <div  id="withdrawmsg" class="forclosing">
+          <p>Hurray!!<br>Money Debited!!</p>
+        </div>
+        <div id="transdetail" class="forclosing">
+          <h1 >Transaction History</h1>
+          <div id="transaction"></div>
+        </div>
+        <div id="balance" class="forclosing">
+          <h1>Your balance is <span id="balancevalue"></span></h1>
+        </div>
+        <div id="closebutton" onclick="Closepopup()"><img src="assets/close-button.png"> </div>
+      </div>
+     
+
+      
+
+    </div>
+    <!-- <button onclick="closed()">Click</button> -->
+  </div>
+
+  <script src="index.js"></script>
 </body>
 </html>
