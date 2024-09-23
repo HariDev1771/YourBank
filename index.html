@@ -113,7 +113,7 @@
       <div id="cont" onclick="Transactiondetails()">
         <img src="/assets/Icon Container (1).png" />Account Details
       </div>
-      <div id="cont" class="cont4" onclick="viewbalance()">
+      <div id="cont" class="cont4" onclick="Transactionbox()">
         <img src="/assets/Icon Container (2).png" />Veiw Balance
       </div>
     </div>
@@ -231,6 +231,10 @@
           <input type="numberic" oninput="numcheck()" placeholder="Phone" id="phno" required>
         </div> 
         <span id="phonemessage">10 numbers required</span>
+        <div id="input-values"> <label for="pinnumber">Pin Generate</label>
+          <input type="numberic" oninput="pincheck()" placeholder="Pin" id="pinnumber" required>
+        </div> 
+        <span id="pinmessage">Your pin should be 4 digits</span>
         <div id="input-values"> <label for="pwd">Password</label>
           <input type="password" oninput="check()" placeholder="Password" id="pwd" required>
         </div> 
@@ -306,12 +310,46 @@
         </div>
         <div id="transdetail" class="forclosing">
           <h1 >Transaction History</h1>
-          <div id="transaction"></div>
+          <div id="scrollbox">
+          <div id="balbox"><h3>Account number is <span id="accountnyum"></span></h3>
+            <h3>Balance is <span id="balnyum"></span></h3></div>
+          <div id="transaction">
+            
+          </div></div>
         </div>
         <div id="balance" class="forclosing">
           <h1>Your balance is <span id="balancevalue"></span></h1>
         </div>
         <div id="closebutton" onclick="Closepopup()"><img src="assets/close-button.png"> </div>
+         
+        <div id="Transactioncontainer" class="forclosing">
+          <h1>Transaction Details</h1>
+          <div id="input-values"> <label for="Recipient">Account number</label>
+            <input type="numberic" oninput="accheck()" placeholder="Account number" id="Recipient" required>
+          </div> 
+          <span id="acmessage">Account numbers should have 10 digits </span>
+          
+          <div id="input-values"> <label for="ttamt" >Enter the amount</label>
+            <input type="numberic" id="ttamt"  placeholder="Enter the amount">
+          </div> 
+          <span id="Depositwarning">Amount needs to be Entered</span>
+          
+          <div id="input-values"> <label for="pin">Your Pin</label>
+            <input type="password" placeholder="Password" id="pin" required>
+          </div> 
+          <span id="pinpasswarning">Invalid pin Retry</span>
+          <div id="btn"> <button id="butttonn" onclick="moneytransfer()">Pay</button></div>
+        </div>
+        <div  id="trmsg" class="forclosing">
+          <p>Hurray!!<br>Money Transferred!!</p>
+        </div>
+          
+          
+
+
+        </div>
+
+
       </div>
      
 

@@ -509,6 +509,15 @@ label{
   color: red;
   display: none;
 }
+#pinmessage{
+  color: red;
+  display: none;
+
+}
+#acmessage{
+  color: red;
+  display: none;
+}
 #logout{
   
     background-color: rgb(245, 44, 44);
@@ -538,6 +547,15 @@ label{
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 
 }
+#trmsg{
+  display: none;
+  justify-content: center;
+  color: white;
+  font-size: 25px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+
+}
 #Depositcontainer {
   height: 100%;
   display: none;
@@ -547,6 +565,15 @@ label{
   border-radius: 15px;
   background-image: url("assets/Abstract\ Design.png");
 
+}
+#Transactioncontainer{
+  height: 100%;
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #58622d;
+  border-radius: 15px;
+  background-image: url("assets/Abstract\ Design.png");
 }
 #Depositcontainer h1{
   color: white;
@@ -561,6 +588,11 @@ label{
   display: none;
 }
 #Depositpasswarning{
+  color: red;
+  display: none;
+
+}
+#pinpasswarning{
   color: red;
   display: none;
 
@@ -608,10 +640,21 @@ label{
   /* flex-direction: column; */
   
 }
+#balbox{
+  display: flex;
+  flex-direction: column;
+  border: 4px yellowgreen solid;
+  margin-bottom:15px ;
+  border-radius: 10px;
+}
 #transaction{
   display: flex;
   flex-direction: column;
+  
+}
+#scrollbox{
   overflow-y: scroll;
+
 }
 #transaction_box p{
   padding: 10px;
@@ -637,4 +680,10 @@ label{
   justify-content: center;
   align-items: center;
 }
- 
+#butttonn{
+  background-color: #caff33;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  width: 90px;
+}

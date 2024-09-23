@@ -5,9 +5,6 @@ let uname = document.getElementById("unme");
 let email = document.getElementById("gmail");
 let mob = document.getElementById("phno");
 
-let userinfo = JSON.parse(localStorage.getItem("personinfo"));
-console.log(userinfo);
-
 function signn() {
   console.log("called");
   sign.style.display = "flex";
@@ -21,27 +18,43 @@ function closed() {
 }
 
 
-let person = {
-  uname: "",
-  password: "",
-  mailid: "",
-  phone: "",
-  balance: 0,
-  transactions: [],
-  loggedin: "false",
-};
 
-console.log(person.balance);
+const genacnum =()=>{
+  let acnum=''
+  for(let i=0;i<10;i++){
+acnum+= Math.floor(Math.random()*10)
+  }return acnum;
+}
+
+// console.log(person.balance);
 // sign in function
 function Signin() {
+  let personarray = [];
   // e.preventDefault();
+  let person = {
+    uname: "",
+    password: "",
+    mailid: "",
+    pinnum:"",
+    phone: "",
+    balance: 0,
+    accnum:"",
+    transactions: [],
+    loggedin: "false",
+  };
+
   if (pswd.value == cpswd.value) {
     person.uname = document.getElementById("unme").value;
     person.mailid = document.getElementById("gmail").value;
     person.phone = document.getElementById("phno").value;
     person.password = document.getElementById("pwd").value;
+    person.pinnum=document.getElementById("pinnumber").value;
+    person.accnum=genacnum();
+    personarray.push(person);
+    console.log(personarray);
+    console.log(person);
 
-    localStorage.setItem("personinfo", JSON.stringify(person));
+    localStorage.setItem("personinfo", JSON.stringify(personarray));
 
     document.getElementById("signupcontainer").style.display = "none";
     document.getElementById("successmg").style.display = "flex";
@@ -68,44 +81,50 @@ function Login() {
   //   step 1 : localstorage access
   // let stored = JSON.parse(localStorage.getItem("personinfo"));
   // console.log(stored);
+  personarray = JSON.parse(localStorage.getItem("personinfo"));
+  console.log(personarray);
+  for (let i = 0; i < personarray.length; i++) {
+    if (cred1 == personarray[i].mailid && cred2 == personarray[i].password) {
+      console.log("login success");
 
-  if (cred1 == userinfo.mailid && cred2 == userinfo.password) {
-    console.log("login success");
-    userinfo.loggedin = "true";
-    document.getElementById("Logging-in").style.display = "none";
-    document.getElementById("welcomemsg").style.display = "flex";
+      personarray[i].loggedin = "true";
+      document.getElementById("Logging-in").style.display = "none";
+      document.getElementById("error").style.display = "none";
+      document.getElementById("welcomemsg").style.display = "flex";
+      localStorage.setItem("personinfo", JSON.stringify(personarray));
 
-    setTimeout(() => {
-      document.getElementById("overlay").style.display = "none";
+      setTimeout(() => {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("welcomemsg").style.display = "none";
+        reload();
+      }, 3000);
+      document.getElementById("gmail2").value = null;
+      document.getElementById("pwd2").value = null;
+      break;
+    } else {
+      document.getElementById("overlay").style.display = "flex";
       document.getElementById("welcomemsg").style.display = "none";
-      reload();
-    }, 3000);
-    document.getElementById("gmail2").value = null;
-    document.getElementById("pwd2").value = null;
-  } else {
-    document.getElementById("overlay").style.display = "flex";
-    document.getElementById("error").style.display = "flex";
+      document.getElementById("error").style.display = "flex";
+    }
   }
 
-  localStorage.setItem("personinfo", JSON.stringify(userinfo));
-
   //  document.getElementById("dname").innerHTML = userinfo.uname;
-  console.log("balance is", userinfo.balance);
+  // console.log("balance is", personarray[i].balance);
 }
 function check() {
   let hasLowercase = false;
   let hasuppercase = false;
   let hasnum = false;
   if (hasLowercase == false) {
-    console.log("yesmall");
+    // console.log("yesmall");
     document.getElementById("smallletter").style.display = "flex";
   }
   if (hasuppercase == false) {
-    console.log("yeslarge");
+    // console.log("yeslarge");
     document.getElementById("capitalletter").style.display = "flex";
   }
   if (hasnum == false) {
-    console.log("yesnum");
+    // console.log("yesnum");
     document.getElementById("number").style.display = "flex";
   }
 
@@ -131,6 +150,16 @@ function check() {
     document.getElementById("m-error").innerHTML = "Password Strong";
   }
 }
+const accheck =() =>{
+  let acn=document.getElementById("Recipient");
+  if(acn.value.length!=10){
+    document.getElementById("acmessage").style.display="flex"
+    console.log("acnum")
+  }
+  else{
+    document.getElementById("acmessage").style.display="none"
+  }
+}
 const ucheck = () => {
   if (uname.value.length < 6) {
     document.getElementById("u-error").style.display = "flex";
@@ -138,6 +167,15 @@ const ucheck = () => {
     document.getElementById("u-error").style.display = "none";
   }
 };
+const pincheck =()=>{
+  let generatedpin=document.getElementById("pinnumber");
+  if(generatedpin.value.length!=4){
+    document.getElementById("pinmessage").style.display="flex";
+  }
+  else{
+    document.getElementById("pinmessage").style.display="none";
+  }
+}
 
 function mailcheck() {
   // for(let i=0;i<email.value.length;i++){
@@ -178,29 +216,74 @@ function numcheck() {
 }
 function logout() {
   // localStorage.removeItem("logging-info");
-  userinfo.loggedin = "false";
-  localStorage.setItem("personinfo", JSON.stringify(userinfo));
-  document.getElementById("authentication").style.display = "flex";
-  document.getElementById("afterloggedin").style.display = "none";
+  // userinfo.loggedin = "false";
+  // localStorage.setItem("personinfo", JSON.stringify(person));
+  // document.getElementById("authentication").style.display = "flex";
+  // document.getElementById("afterloggedin").style.display = "none";
+  logininfo = JSON.parse(localStorage.getItem("personinfo"));
+  for (let i = 0; i < logininfo.length; i++) {
+    if (logininfo[i].loggedin == "true") {
+      logininfo[i].loggedin = "false";
+
+      document.getElementById("authentication").style.display = "flex";
+      document.getElementById("afterloggedin").style.display = "none";
+    }
+  }
+  localStorage.setItem("personinfo", JSON.stringify(logininfo));
 }
 function reload() {
   // loginnfo = JSON.parse(localStorage.getItem("logging-info"));
-  if (userinfo?.loggedin == "true") {
-    document.getElementById("authentication").style.display = "none";
-    document.getElementById("afterloggedin").style.display = "flex";
-    document.getElementById("dname").innerHTML = userinfo.uname;
-  }
+  // if (person?.loggedin == "true") {
+  //   document.getElementById("authentication").style.display = "none";
+  //   document.getElementById("afterloggedin").style.display = "flex";
+  //   document.getElementById("dname").innerHTML = person.uname;
+  // }
+  let logininfo = JSON.parse(localStorage.getItem("personinfo"));
+  console.log(logininfo);
+  if (logininfo)
+    for (let i = 0; i < logininfo.length; i++) {
+      if (logininfo[i].loggedin == "true") {
+        document.getElementById("authentication").style.display = "none";
+        document.getElementById("afterloggedin").style.display = "flex";
+        document.getElementById("dname").innerHTML = logininfo[i].uname;
+      }
+    }
 }
 reload();
 
 function viewbalance() {
   console.log("worked");
 
-  console.log(userinfo.balance);
-  sign.style.display = "flex";
-  document.getElementById("overlaycontainer").style.display = "flex";
-  document.getElementById("balance").style.display = "flex";
-  document.getElementById("balancevalue").innerHTML = userinfo.balance;
+  // console.log(userinfo.balance);
+  // sign.style.display = "flex";
+  // document.getElementById("overlaycontainer").style.display = "flex";
+  // document.getElementById("balance").style.display = "flex";
+  // document.getElementById("balancevalue").innerHTML = userinfo.balance;
+  // setTimeout(() => {
+  //   sign.style.display = "none";
+  //   document.getElementById("overlaycontainer").style.display = "none";
+  //   document.getElementById("balance").style.display = "none";
+  // }, 3000);
+  let logininfo = JSON.parse(localStorage.getItem("personinfo"));
+  console.log(logininfo);
+  let userchck = false;
+
+  for (let i = 0; i < logininfo.length; i++) {
+    if (logininfo[i].loggedin == "true") {
+      userchck = true;
+
+      sign.style.display = "flex";
+      document.getElementById("overlaycontainer").style.display = "flex";
+      document.getElementById("balance").style.display = "flex";
+      document.getElementById("balancevalue").innerHTML = logininfo[i].balance;
+
+      break;
+    }
+    // ---unable to add else  : repetition occurs fix it
+  }
+  if (!userchck) {
+    window.alert("you have to login");
+  }
   setTimeout(() => {
     sign.style.display = "none";
     document.getElementById("overlaycontainer").style.display = "none";
@@ -216,27 +299,35 @@ function deposit() {
 }
 function depositconfirm() {
   console.log("heylo deposited");
-  // loginnfo = JSON.parse(localStorage.getItem("logging-info"));
+  logininfo = JSON.parse(localStorage.getItem("personinfo"));
   let pin = document.getElementById("pin").value;
   amt = Number(document.getElementById("depositamount").value);
+  let userchck = false;
 
-  if (pin) {
-    document.getElementById("Depositcontainer").style.display = "none";
-    document.getElementById("Depositpasswarning").style.display = "none";
-    document.getElementById("depomsg").style.display = "flex";
-    userinfo.balance += amt;
-    let t = new Date();
-    let transactioninfo = {};
-    transactioninfo.transaction_time = t;
-    transactioninfo.transaction_type = "Deposit";
-    transactioninfo.transaction_amount = amt;
-    console.log(transactioninfo);
-    userinfo.transactions.push(transactioninfo);
-    console.log(userinfo);
-    localStorage.setItem("personinfo", JSON.stringify(userinfo));
-    document.getElementById("pin").value = null;
-    document.getElementById("depositamount").value = null;
-  } else {
+  for (let i = 0; i < logininfo.length; i++) {
+    if (logininfo[i].loggedin == "true" && logininfo[i].pinnum == pin) {
+      userchck = true;
+      document.getElementById("Depositcontainer").style.display = "none";
+      document.getElementById("Depositpasswarning").style.display = "none";
+      document.getElementById("depomsg").style.display = "flex";
+
+      logininfo[i].balance += amt;
+      let t = new Date();
+      let transactioninfo = {};
+      transactioninfo.transaction_time = t;
+      transactioninfo.transaction_type = "Deposit";
+      transactioninfo.transaction_amount = amt;
+      
+      console.log(transactioninfo);
+      logininfo[i].transactions.push(transactioninfo);
+      console.log(logininfo[i]);
+      localStorage.setItem("personinfo", JSON.stringify(logininfo));
+      document.getElementById("pin").value = null;
+      document.getElementById("depositamount").value = null;
+      break;
+    }
+  }
+  if (!userchck) {
     console.log("cont deposit money");
     document.getElementById("depomsg").style.display = "none";
     document.getElementById("Depositpasswarning").style.display = "flex";
@@ -261,23 +352,33 @@ function withdrawconfirm() {
   // loginnfo = JSON.parse(localStorage.getItem("logging-info"));
   let pinn = document.getElementById("pin1").value;
   amt = Number(document.getElementById("withdrawamount").value);
-  if (pinn == userinfo.password) {
-    document.getElementById("Withdrawcontainer").style.display = "none";
-    document.getElementById("Depositpasswarning").style.display = "none";
-    document.getElementById("withdrawmsg").style.display = "flex";
-    console.log("withdrawn");
-    userinfo.balance -= amt;
-    let transactioninfo = {};
-    let t = new Date();
-    transactioninfo.transaction_time = t;
-    transactioninfo.transaction_type = "Withdrawn";
-    transactioninfo.transaction_amount = amt;
-    userinfo.transactions.push(transactioninfo);
-    console.log(userinfo);
-    localStorage.setItem("personinfo", JSON.stringify(userinfo));
-    document.getElementById("pin1").value = null;
-    document.getElementById("withdrawamount").value = null;
-  } else {
+  logininfo = JSON.parse(localStorage.getItem("personinfo"));
+  let usercheck = false;
+  console.log(logininfo);
+  for (let i = 0; i < logininfo.length; i++) {
+    if (logininfo[i].loggedin == "true" && logininfo[i].pinnum == pinn) {
+      usercheck = true;
+      console.log(logininfo[i]);
+      document.getElementById("Withdrawcontainer").style.display = "none";
+      document.getElementById("Depositpasswarning").style.display = "none";
+      document.getElementById("withdrawmsg").style.display = "flex";
+      console.log("withdrawn");
+      logininfo[i].balance -= amt;
+      let transactioninfo = {};
+      let t = new Date();
+      transactioninfo.transaction_time = t;
+      transactioninfo.transaction_type = "Withdrawn";
+      transactioninfo.transaction_amount = amt;
+      
+      logininfo[i].transactions.push(transactioninfo);
+      console.log(logininfo[i]);
+      localStorage.setItem("personinfo", JSON.stringify(logininfo));
+      document.getElementById("pin1").value = null;
+      document.getElementById("withdrawamount").value = null;
+      break;
+    }
+  }
+  if (!usercheck) {
     console.log("cont withdraw money");
     document.getElementById("withdrawmsg").style.display = "none";
     document.getElementById("Depositpasswarning").style.display = "flex";
@@ -293,50 +394,131 @@ function Transactiondetails() {
   // loginnfo = JSON.parse(localStorage.getItem("logging-info"));
 
   // document.getElementById("transaction").innerHTML=userinfo.transactions;
-  userinfo = JSON.parse(localStorage.getItem("personinfo"));
-  for (let i = 0; i < userinfo.transactions.length; i++) {
-    let box = document.createElement("div");
-
-    box.id = "transaction_box";
-    let p1 = document.createElement("p");
-    let p2 = document.createElement("p");
-    let p3 = document.createElement("p");
-    p1.innerHTML = userinfo.transactions[i].transaction_type;
-    p2.innerHTML = userinfo.transactions[i].transaction_amount;
-    p3.innerHTML = userinfo.transactions[i].transaction_time;
-    if (userinfo.transactions[i].transaction_type == "Deposit") {
-      p1.style.color = "#caff33";
-    } else if (userinfo.transactions[i].transaction_type == "Withdrawn") {
-      p1.style.color = "red";
+ let userinfo = JSON.parse(localStorage.getItem("personinfo"));
+ for(let j=0;j<userinfo.length;j++){
+  if (userinfo[j].loggedin == "true"){
+    // let p4=document.createElement("p")
+    // p4.innerHTML=userinfo[j].accnum;
+    // let p5 =document.createElement("p")
+    // p5.innerHTML=userinfo[j].balance
+    document.getElementById("accountnyum").innerHTML=userinfo[j].accnum
+ document.getElementById("balnyum").innerHTML=userinfo[j].balance
+    // let bal=document.createElement("div")
+    // bal.id="balbox"
+    // bal.appendChild(p4)
+    // bal.appendChild(p5)
+    for (let i = 0; i < userinfo[j].transactions.length; i++) {
+      let box = document.createElement("div");
+  
+      box.id = "transaction_box";
+      
+      let p1 = document.createElement("p");
+      let p2 = document.createElement("p");
+      let p3 = document.createElement("p");
+      p1.innerHTML = userinfo[j].transactions[i].transaction_type;
+      p2.innerHTML = userinfo[j].transactions[i].transaction_amount;
+      p3.innerHTML = userinfo[j].transactions[i].transaction_time;
+      if (userinfo[j].transactions[i].transaction_type == "Deposit") {
+        p1.style.color = "#caff33";
+      } else if (userinfo[j].transactions[i].transaction_type == "Withdrawn") {
+        p1.style.color = "red";
+      }
+    
+      box.appendChild(p1);
+  
+      box.appendChild(p2);
+  
+      box.appendChild(p3);
+      // document.getElementById("transaction").appendChild(bal);
+      document.getElementById("transaction").appendChild(box);
     }
-
-    box.appendChild(p1);
-
-    box.appendChild(p2);
-
-    box.appendChild(p3);
-    document.getElementById("transaction").appendChild(box);
+  
+    sign.style.display = "flex";
+    document.getElementById("overlaycontainer").style.display = "flex";
+    document.getElementById("transdetail").style.display = "flex";
+  
+    console.log(userinfo);
   }
-
-  sign.style.display = "flex";
-  document.getElementById("overlaycontainer").style.display = "flex";
-  document.getElementById("transdetail").style.display = "flex";
-
-  console.log(userinfo);
+ }
+ 
 }
 function moneycheck() {
   if (document.getElementById("depositamount").value == null) {
     document.getElementById("Depositwarning").style.display = "flex";
+    console.log("dwarn")
   } else {
     document.getElementById("Depositwarning").style.display = "none";
   }
 }
 function Closepopup() {
   let close = document.querySelectorAll(".forclosing");
-  
+
   for (let i = 0; i < close.length; i++) {
     close[i].style.display = "none";
   }
 
   reload();
+}
+function Transactionbox(){
+  console.log("hi transax box");
+  sign.style.display = "flex";
+  document.getElementById("overlaycontainer").style.display = "flex";
+  document.getElementById("Transactioncontainer").style.display = "flex";
+
+}
+function moneytransfer(){
+  amt=Number(document.getElementById("ttamt").value)
+  let pin=document.getElementById("pin").value
+  let recipient=Number(document.getElementById("Recipient").value)
+  let ycheck =false;
+  let userinfo=JSON.parse(localStorage.getItem("personinfo"));
+  for(let i=0;i<userinfo.length;i++){
+    if(userinfo[i].loggedin=="true"){
+        ycheck=true;
+        for(let j=0;j<userinfo.length;j++){
+          if(recipient==userinfo[j].accnum ){
+            console.log("j kitti")
+            console.log(amt)
+            console.log(userinfo[j])
+            console.log(userinfo[i])
+           userinfo[j].balance+=amt;
+           userinfo[i].balance-=amt;
+           let transactioninfo={}
+           let t=new Date();
+           transactioninfo.transaction_time=t;
+           transactioninfo.transaction_amount=amt;
+          //  transactioninfo.transaction_type=`Transferred to "${userinfo[j].accnum}"`
+           userinfo[i].transactions.push(transactioninfo)
+           console.log(userinfo[i])
+
+          transactioninfo.transaction_type=`Transferred from "${userinfo[i].accnum}  Transferred to "${userinfo[j].accnum}"`
+          userinfo[j].transactions.push(transactioninfo);
+           
+          
+           console.log("mone deposit aki")
+           localStorage.setItem("personinfo",JSON.stringify(userinfo));
+           document.getElementById("Transactioncontainer").style.display="none"
+           document.getElementById("trmsg").style.display="flex"
+           
+           document.getElementById("Recipient").value=null;
+           document.getElementById("ttamt").value=null;
+           document.getElementById("pin").value=null;
+
+            
+          }
+        }
+    
+    }
+    //first if loop ends :logged in true
+    if(!ycheck){
+      window.alert("Login to perfom action");
+    }
+    setTimeout(()=> {
+      document.getElementById("overlay").style.display="none";
+
+      document.getElementById("overlaycontainer").style.display="none";
+      document.getElementById("Transactioncontainer").style.display="none";
+      document.getElementById("trmsg").style.display="none";
+    },3000)
+  }
 }
