@@ -8,6 +8,7 @@ let mob = document.getElementById("phno");
 function signn() {
   console.log("called");
   sign.style.display = "flex";
+  document.getElementById("Logging-in").style.display = "none";
 
   document.getElementById("signupcontainer").style.display = "flex";
 }
@@ -29,8 +30,14 @@ acnum+= Math.floor(Math.random()*10)
 // console.log(person.balance);
 // sign in function
 function Signin() {
-  let personarray = [];
-  // e.preventDefault();
+  let personarray = localStorage.getItem("personinfo");
+  
+  if (personarray === null){
+    personarray=[];
+  }
+  else{
+    personarray = JSON.parse(personarray);
+  }
   let person = {
     uname: "",
     password: "",
@@ -65,10 +72,12 @@ function Signin() {
     }, 3000);
   } else {
     document.getElementById("p-error").innerHTML = "Password doesn't match!";
+    
   }
 }
 function logged() {
   sign.style.display = "flex";
+  document.getElementById("signupcontainer").style.display = "none";
   document.getElementById("Logging-in").style.display = "flex";
 }
 
@@ -293,6 +302,8 @@ function viewbalance() {
 
 function deposit() {
   console.log("hi sagar");
+  document.getElementById("balance").style.display = "none";
+  document.getElementById("Withdrawcontainer").style.display = "none";
   sign.style.display = "flex";
   document.getElementById("overlaycontainer").style.display = "flex";
   document.getElementById("Depositcontainer").style.display = "flex";
@@ -345,8 +356,13 @@ function depositconfirm() {
 function Withdraw() {
   console.log("hi boi");
   sign.style.display = "flex";
+  document.getElementById("balance").style.display = "none";
   document.getElementById("overlaycontainer").style.display = "flex";
   document.getElementById("Withdrawcontainer").style.display = "flex";
+  document.getElementById("Depositcontainer").style.display = "none";
+  document.getElementById("Transactioncontainer").style.display = "none";
+  
+  document.getElementById("transdetail").style.display = "none";
 }
 function withdrawconfirm() {
   // loginnfo = JSON.parse(localStorage.getItem("logging-info"));
@@ -435,7 +451,10 @@ function Transactiondetails() {
   
     sign.style.display = "flex";
     document.getElementById("overlaycontainer").style.display = "flex";
+    document.getElementById("Depositcontainer").style.display = "none";
     document.getElementById("transdetail").style.display = "flex";
+    document.getElementById("Withdrawcontainer").style.display = "none";
+    document.getElementById("Transactioncontainer").style.display = "none";
   
     console.log(userinfo);
   }
@@ -454,7 +473,9 @@ function Closepopup() {
   let close = document.querySelectorAll(".forclosing");
 
   for (let i = 0; i < close.length; i++) {
-    close[i].style.display = "none";
+    
+    sign.style.display="none"
+    // close[i].style.display="none"
   }
 
   reload();
@@ -464,6 +485,9 @@ function Transactionbox(){
   sign.style.display = "flex";
   document.getElementById("overlaycontainer").style.display = "flex";
   document.getElementById("Transactioncontainer").style.display = "flex";
+  document.getElementById("Depositcontainer").style.display = "none";
+  document.getElementById("transdetail").style.display = "none";
+  document.getElementById("Withdrawcontainer").style.display = "none";
 
 }
 function moneytransfer(){
