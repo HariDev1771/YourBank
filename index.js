@@ -13,10 +13,7 @@ function signn() {
   document.getElementById("signupcontainer").style.display = "flex";
 }
 
-function closed() {
-  console.log("yes called");
-  sign.style.display = "none";
-}
+
 
 
 
